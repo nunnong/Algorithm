@@ -7,50 +7,45 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class Main {
-	
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		
-		int N = Integer.parseInt(br.readLine()); // 명령어 개수
-		Deque<String> deque = new ArrayDeque<>();
-		
-		for (int i = 0; i < N; i++) {
-            String[] tmp = br.readLine().trim().split(" ");
-            
-            switch (tmp[0]) {
-                case "push_front":
-                	deque.addFirst(tmp[1]);
-                    break;
-                case "push_back":
-                	deque.addLast(tmp[1]);
-                	break;
-                	
-                case "pop_front":
-                	bw.write((deque.isEmpty() ? -1 : deque.removeFirst()) + "\n");
-                    break;
-                case "pop_back":
-                	bw.write((deque.isEmpty() ? -1 : deque.removeLast()) + "\n");
-                	break;
-                	
-                case "size":
-                	bw.write(deque.size() + "\n");
-                	break;
-                case "empty":
-                	bw.write(((deque.isEmpty()) ? 1 : 0) + "\n");
-                	break;
-                case "front":
-                    bw.write((deque.isEmpty() ? -1 : deque.peekFirst()) + "\n");
-                    break;
-                case "back":
-                    bw.write((deque.isEmpty() ? -1 : deque.peekLast()) + "\n");
-                    break;
+    
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        int N = Integer.parseInt(br.readLine()); // 명령어 개수
+        Deque<Integer> deque = new ArrayDeque<>();
+
+        for (int i = 0; i < N; i++) {
+            String command = br.readLine();
+
+            if (command.startsWith("push")) {
+                // push 명령어는 항상 공백을 포함하고 있으므로, 첫 번째 공백의 인덱스를 찾아 숫자만 추출
+                int spaceIndex = command.indexOf(" ");
+                String cmdType = command.substring(0, spaceIndex);
+                int value = Integer.parseInt(command.substring(spaceIndex + 1));
+
+                if (cmdType.equals("push_front")) {
+                    deque.addFirst(value);
+                } else { // "push_back"
+                    deque.addLast(value);
+                }
+            } else if (command.equals("pop_front")) {
+                bw.write((deque.isEmpty() ? "-1" : deque.pollFirst()) + "\n");
+            } else if (command.equals("pop_back")) {
+                bw.write((deque.isEmpty() ? "-1" : deque.pollLast()) + "\n");
+            } else if (command.equals("size")) {
+                bw.write(deque.size() + "\n");
+            } else if (command.equals("empty")) {
+                bw.write((deque.isEmpty() ? "1" : "0") + "\n");
+            } else if (command.equals("front")) {
+                bw.write((deque.isEmpty() ? "-1" : deque.peekFirst()) + "\n");
+            } else if (command.equals("back")) {
+                bw.write((deque.isEmpty() ? "-1" : deque.peekLast()) + "\n");
             }
         }
-		br.close();
-		bw.flush();
-		bw.close();
-		
-	}// main
 
+        br.close();
+        bw.flush();
+        bw.close();
+    }
 }
