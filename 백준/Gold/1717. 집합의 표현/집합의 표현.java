@@ -14,6 +14,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
+        StringBuilder sb = new StringBuilder();
 
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
@@ -39,15 +40,17 @@ public class Main {
 
             if (operator == 0) {
                 union(a, b);
-                
+
             } else if (operator == 1) {
                 if (find(a) == find(b)) {
-                    System.out.println("YES");
+                    sb.append("YES").append("\n");
                 } else {
-                    System.out.println("NO");
+                    sb.append("NO").append("\n");
                 }
             }
         }
+
+        System.out.println(sb.toString());
 
     }
 
@@ -62,16 +65,16 @@ public class Main {
     }
 
     private static void union(int x, int y) {
-        x = find(x);
-        y = find(y);
+        int rootX = find(x);
+        int rootY = find(y);
 
-        if (x == y) {
+        if (rootX == rootY) {
             return;
         }
-        if (x < y) {
-            parent[y] = x;
+        if (rootX < rootY) {
+            parent[rootX] = rootY;
         } else {
-            parent[x] = y;
+            parent[rootY] = rootX;
         }
     }
 }
