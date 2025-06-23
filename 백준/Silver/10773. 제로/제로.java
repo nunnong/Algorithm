@@ -19,11 +19,10 @@ public class Main {
                 stack.pop();
             }
         }
-        int size = stack.size();
 
         int sum = 0;
-        for (int i = 0; i < size; i++) {
-            sum += stack.pop();
+        for (Integer num : stack) {
+            sum += num;
         }
         System.out.println(sum);
     }
