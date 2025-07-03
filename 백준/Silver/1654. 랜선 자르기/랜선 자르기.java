@@ -15,14 +15,13 @@ public class Main {
         N = Integer.parseInt(st.nextToken());
 
         line = new int[K];
+        int maxLength = 0;
 
-        long sum = 0;
         for (int i = 0; i < K; i++) {
             line[i] = Integer.parseInt(br.readLine());
-            sum += line[i];
+            maxLength = Math.max(maxLength, line[i]);
         }
 
-        long maxLength = sum / N;
         long left = 1;
         long right = maxLength;
         long ans = 0;
