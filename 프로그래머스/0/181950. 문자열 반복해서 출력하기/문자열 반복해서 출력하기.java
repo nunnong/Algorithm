@@ -6,11 +6,6 @@ public class Solution {
         String str = sc.next();
         int n = sc.nextInt();
         
-        String ans = "";
-        for (int i = 0 ; i < n ; i++) {
-            ans+= str;
-        }
-        
-        System.out.println(ans);
+        System.out.println(str.repeat(n));
     }
 }
