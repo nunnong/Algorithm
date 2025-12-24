@@ -5,15 +5,7 @@ public class Solution {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         
-        StringBuilder sb = new StringBuilder();
-        sb.append(n).append(" ");
-        
-        if (n % 2 == 0) {
-            sb.append("is even");
-        } else {
-            sb.append("is odd");
-        }
-        
-        System.out.println(sb.toString());
+        System.out.print(n + " is " + (n % 2 == 0 ? "even" : "odd"));
+
     }
 }
