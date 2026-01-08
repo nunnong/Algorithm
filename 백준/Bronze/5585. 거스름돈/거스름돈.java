@@ -1,11 +1,12 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class Main {
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
 
-    Scanner sc = new Scanner(System.in);
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-    int pay = sc.nextInt();
+    int pay = Integer.parseInt(br.readLine());
     int changes = 1000 - pay;
 
     int[] coin = { 500, 100, 50, 10, 5, 1 };
@@ -21,8 +22,5 @@ public class Main {
     }
 
     System.out.println(ans);
-
-    sc.close();
-
   }
 }
