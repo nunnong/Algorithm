@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -10,7 +11,9 @@ public class Main {
     StringTokenizer st;
 
     int N = Integer.parseInt(br.readLine()); // 명령의 수 N
-    Stack<Integer> stack = new Stack<>();
+    Deque<Integer> stack = new ArrayDeque<>();
+
+    StringBuilder sb = new StringBuilder();
 
     for (int i = 0; i < N; i++) {
 
@@ -24,26 +27,28 @@ public class Main {
       }
 
       if (nextToken.equals("pop")) {
-        System.out.println(stack.isEmpty() ? -1 : stack.pop());
+
+        sb.append(stack.isEmpty() ? -1 : stack.pop()).append("\n");
         continue;
       }
 
       if (nextToken.equals("size")) {
-        System.out.println(stack.size());
+        sb.append(stack.size()).append("\n");
         continue;
       }
 
       if (nextToken.equals("empty")) {
-        System.out.println(stack.isEmpty() ? 1 : 0);
+        sb.append(stack.isEmpty() ? 1 : 0).append("\n");
         continue;
       }
 
       if (nextToken.equals("top")) {
-        System.out.println(stack.isEmpty() ? -1 : stack.peek());
-
+        sb.append(stack.isEmpty() ? -1 : stack.peek()).append("\n");
       }
 
     }
+
+    System.out.println(sb.toString());
 
   }
 }
