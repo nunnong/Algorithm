@@ -1,42 +1,49 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.Stack;
+import java.util.StringTokenizer;
 
 public class Main {
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		int N = Integer.parseInt(br.readLine()); // 명령어 개수
-		Stack<String> stack = new Stack<String>();
-		
-		for (int i = 0; i < N; i++) {
-            String[] tmp = br.readLine().trim().split(" ");
-            
-            switch (tmp[0]) {
-                case "push":
-                    stack.push(tmp[1]);
-                    break;
-                case "top":
-                    bw.write((stack.isEmpty() ? -1 : stack.peek()) + "\n");
-                    break;
-                case "size":
-                    bw.write(stack.size() + "\n");
-                    break;
-                case "pop":
-                    bw.write((stack.isEmpty() ? -1 : stack.pop()) + "\n");
-                    break;
-                case "empty":
-                    bw.write((stack.isEmpty() ? 1 : 0) + "\n");
-                    break;
-            }
-        }
+  public static void main(String[] args) throws Exception {
 
-        br.close();
-        bw.flush();
-        bw.close();
-	}
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    StringTokenizer st;
 
+    int N = Integer.parseInt(br.readLine()); // 명령의 수 N
+    Stack<Integer> stack = new Stack<>();
+
+    for (int i = 0; i < N; i++) {
+
+      st = new StringTokenizer(br.readLine());
+
+      String nextToken = st.nextToken();
+
+      if (nextToken.equals("push")) {
+        stack.push(Integer.parseInt(st.nextToken()));
+        continue;
+      }
+
+      if (nextToken.equals("pop")) {
+        System.out.println(stack.isEmpty() ? -1 : stack.pop());
+        continue;
+      }
+
+      if (nextToken.equals("size")) {
+        System.out.println(stack.size());
+        continue;
+      }
+
+      if (nextToken.equals("empty")) {
+        System.out.println(stack.isEmpty() ? 1 : 0);
+        continue;
+      }
+
+      if (nextToken.equals("top")) {
+        System.out.println(stack.isEmpty() ? -1 : stack.peek());
+
+      }
+
+    }
+
+  }
 }
