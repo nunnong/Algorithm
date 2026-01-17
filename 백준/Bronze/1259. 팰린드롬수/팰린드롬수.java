@@ -9,16 +9,10 @@ public class Main {
     while (true) {
       String input = br.readLine();
 
-      if (input.equals("0"))
-        break;
+      if (input.equals("0")) break;
 
-      String[] line = input.split("");
-
-      StringBuilder palindrome = new StringBuilder();
-
-      for (int i = line.length - 1; i >= 0; i--) {
-        palindrome.append(line[i]);
-      }
+      StringBuilder palindrome = new StringBuilder(input);
+      palindrome.reverse();
 
       System.out.println(input.equals(palindrome.toString()) ? "yes" : "no");
     }
