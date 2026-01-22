@@ -8,9 +8,9 @@ public class Main {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     int T = Integer.parseInt(br.readLine());
+    StringBuilder sb = new StringBuilder();
 
     for (int i = 0; i < T; i++) {
-      StringBuilder sb = new StringBuilder();
       StringTokenizer st = new StringTokenizer(br.readLine());
 
       int rep = Integer.parseInt(st.nextToken());
@@ -22,10 +22,10 @@ public class Main {
           sb.append(c);
         }
       }
-
-      System.out.println(sb.toString());
-
+      sb.append("\n");
     }
+    System.out.println(sb.toString());
+
   }
 
 }
