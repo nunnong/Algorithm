@@ -21,7 +21,7 @@ public class Main {
       if (arr[i] <= 1)
         continue;
 
-      for (int j = 2; j < arr[i]; j++) {
+      for (int j = 2; j * j <= arr[i]; j++) {
         if (arr[i] % j == 0) {
           isDecimal = false;
           break;
