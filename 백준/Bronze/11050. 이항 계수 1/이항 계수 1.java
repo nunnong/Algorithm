@@ -22,7 +22,7 @@ public class Main {
     }
 
     for (int i = 2; i <= N; i++) {
-      for (int j = 1; j <= N; j++) {
+      for (int j = 1; j < i; j++) {
         dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j];
       }
     }
