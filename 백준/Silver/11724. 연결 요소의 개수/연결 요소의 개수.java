@@ -2,26 +2,26 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main {
 
-  static ArrayList<Integer>[] graph;
+  static List<Integer>[] graph;
   static boolean[] visited;
 
   public static void main(String[] args) throws IOException {
 
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
     StringTokenizer st = new StringTokenizer(br.readLine());
 
     int N = Integer.parseInt(st.nextToken());
     int M = Integer.parseInt(st.nextToken());
 
     graph = new ArrayList[N + 1];
-    visited = new boolean[N + 1]; // 정점을 방문했는지 체크
+    visited = new boolean[N + 1];
 
-    for (int i = 0; i <= N; i++) {
+    for (int i = 1; i <= N; i++) {
       graph[i] = new ArrayList<>();
     }
 
@@ -32,7 +32,7 @@ public class Main {
       int e = Integer.parseInt(st.nextToken());
 
       graph[s].add(e);
-      graph[e].add(s); // 정점 기준 연결 완료
+      graph[e].add(s);
     }
 
     int cnt = 0; // 연결 요소 개수
@@ -48,11 +48,7 @@ public class Main {
   }
 
   public static void DFS(int i) {
-    if (visited[i]) {
-      return;
-    }
     visited[i] = true;
-
     for (int k : graph[i]) {
       if (!visited[k]) {
         DFS(k);
