@@ -8,16 +8,16 @@ public class Main {
   static boolean exist = false;
   static ArrayList<Integer>[] list;
   static boolean[] visited;
+  static int N;
 
   public static void main(String[] args) throws IOException {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
     StringTokenizer st = new StringTokenizer(br.readLine());
-    int N = Integer.parseInt(st.nextToken());
+
+    N = Integer.parseInt(st.nextToken());
     int M = Integer.parseInt(st.nextToken());
 
     list = new ArrayList[N];
-
     for (int i = 0; i < N; i++) {
       list[i] = new ArrayList<>();
     }
@@ -26,37 +26,37 @@ public class Main {
       st = new StringTokenizer(br.readLine());
       int n1 = Integer.parseInt(st.nextToken());
       int n2 = Integer.parseInt(st.nextToken());
-
       list[n1].add(n2);
       list[n2].add(n1);
     }
 
+    visited = new boolean[N];
+
     for (int i = 0; i < N; i++) {
-      visited = new boolean[N];
       visited[i] = true;
-
       dfs(i, 1);
+      visited[i] = false;
 
-      if (exist)
-        break;
+      if (exist) break;
     }
 
     System.out.println(exist ? 1 : 0);
   }
 
   static void dfs(int node, int depth) {
+    if (exist) return;
+
     if (depth == 5) {
       exist = true;
       return;
     }
 
-    for (int i : list[node]) {
-      if (!visited[i]) {
-        visited[i] = true;
-        dfs(i, depth + 1);
-        visited[i] = false;
+    for (int next : list[node]) {
+      if (!visited[next]) {
+        visited[next] = true;
+        dfs(next, depth + 1);
+        visited[next] = false;
       }
     }
-    return;
   }
 }
