@@ -7,34 +7,31 @@ import java.util.Queue;
 public class Main {
   public static void main(String[] args) throws IOException {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
     String[] str = br.readLine().split(" ");
 
     int N = Integer.parseInt(str[0]);
     int K = Integer.parseInt(str[1]);
 
     Queue<Integer> q = new ArrayDeque<>();
-
-    for (int i = 0; i < N; i++) {
-      q.add(i + 1);
+    for (int i = 1; i <= N; i++) {
+      q.add(i);
     }
-    StringBuilder sb = new StringBuilder();
-    int k = K;
+
+    StringBuilder sb = new StringBuilder(N * 4);
+    sb.append('<');
 
     while (!q.isEmpty()) {
-      k = K;
-      while (--k > 0) {
-        int add = q.poll();
-        q.add(add);
+      for (int i = 0; i < K - 1; i++) {
+        q.add(q.poll());
       }
-      sb.append(q.poll()).append(',').append(" ");
+
+      sb.append(q.poll());
+      if (!q.isEmpty()) {
+        sb.append(", ");
+      }
     }
 
-    sb.insert(0, "<");
-    sb.setLength(sb.length() - 2);
-    sb.append(">");
-
-    System.out.println(sb.toString());
-
+    sb.append('>');
+    System.out.println(sb);
   }
 }
