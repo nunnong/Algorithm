@@ -3,43 +3,43 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
+  static int N, M;
+  static boolean[] checked;
+  static StringBuilder sb;
+  static int[] selected;
 
-    static int N;
-    static int M;
-    static int[] data;
-    static boolean[] visited;
+  public static void main(String[] args) throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    sb = new StringBuilder();
 
-    public static void main(String[] args) throws IOException {
-        // 1부터 N까지 자연수 중에서 중복 없이 M개를 고른 수열
+    String[] line = br.readLine().split(" ");
+    N = Integer.parseInt(line[0]);
+    M = Integer.parseInt(line[1]);
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    checked = new boolean[N + 1];
+    selected = new int[M];
 
-        String[] tmp = br.readLine().trim().split(" ");
+    combination(0);
+    System.out.println(sb.toString());
+  }
 
-        N = Integer.parseInt(tmp[0]); // N개 중에서
-        M = Integer.parseInt(tmp[1]); // M개를 골라
-        data = new int[M];
-        visited = new boolean[N];
-        permutation(0);
+  public static void combination(int cnt) {
+    if (cnt == M) {
+      for (int i = 0; i < M; i++) {
+        sb.append(selected[i]).append(" ");
+      }
+      sb.append("\n");
+      return;
     }
 
-    private static void permutation(int idx) {
-        if (idx == M) {
-            for (int i : data) {
-                System.out.print(i + " ");
-            }
-            System.out.println();
-            return;
-        }
+    for (int i = 1; i <= N; i++) {
+      if (!checked[i]) {
+        checked[i] = true;
+        selected[cnt] = i;
+        combination(cnt + 1);
+        checked[i] = false;
+      }
 
-        for (int i = 1 ; i <= N ; i++) {
-            if (!visited[i-1]) {
-                data[idx] = i;
-                visited[i-1] = true;
-                permutation(idx+1);
-                visited[i-1] = false;
-            }
-
-        }
     }
+  }
 }
