@@ -1,9 +1,12 @@
 public class Main {
+  public static void main(String[] args) {
 
-    public static void main(String[] args) {
-        System.out.println("\\    /\\");
-        System.out.println(" )  ( ')");
-        System.out.println("(  /  )");
-        System.out.println(" \\(__)|");
-    }
+    StringBuilder sb = new StringBuilder();
+    sb.append("\\    /\\\n");
+    sb.append(" )  ( ')\n");
+    sb.append("(  /  )\n");
+    sb.append(" \\(__)|");
+
+    System.out.println(sb.toString());
+  }
 }
