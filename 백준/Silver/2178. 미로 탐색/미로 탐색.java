@@ -1,76 +1,61 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
+import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
+  static int[] dx = { 0, 1, 0, -1 };
+  static int[] dy = { 1, 0, -1, 0 };
+  static int N, M;
+  static int[][] graph;
+  static Queue<int[]> q;
 
-	static int N, M;
-	static int[][] map;
-	static boolean[][] visited;
-	static int[] dx = { -1, 1, 0, 0 };
-	static int[] dy = { 0, 0, -1, 1 };
-	static int cnt;
+  public static void main(String[] args) throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-	public static void main(String[] args) throws IOException {
+    StringTokenizer st = new StringTokenizer(br.readLine());
+    N = Integer.parseInt(st.nextToken());
+    M = Integer.parseInt(st.nextToken());
 
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
+    graph = new int[N][M];
+    q = new ArrayDeque<>();
 
-		N = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
+    for (int i = 0; i < N; i++) {
+      String line = br.readLine();
+      for (int j = 0; j < M; j++) {
+        graph[i][j] = line.charAt(j) - '0';
+      }
+    }
 
-		map = new int[N][M];
-		visited = new boolean[N][M];
+    System.out.println(bfs(0, 0));
+  }
 
-		for (int i = 0; i < N; i++) {
-			String[] tmp = br.readLine().trim().split("");
-			for (int j = 0; j < M; j++) {
-				map[i][j] = Integer.parseInt(tmp[j]);
-			}
-		}
+  static int bfs(int cx, int cy) {
+    q.offer(new int[] { cx, cy });
+    graph[cx][cy] = 1;
 
-		cnt = 0;
-		bfs(0, 0, 1);
+    while (!q.isEmpty()) {
+      int[] current = q.poll();
+      int x = current[0];
+      int y = current[1];
 
-		System.out.println(cnt);
+      if (x == N - 1 && y == M - 1) {
+        return graph[x][y];
+      }
 
-	}
+      for (int i = 0; i < 4; i++) {
+        int nx = x + dx[i];
+        int ny = y + dy[i];
 
-	private static void bfs(int x, int y, int depth) {
+        if (nx >= 0 && nx < N && ny >= 0 && ny < M && graph[nx][ny] == 1) {
+          q.offer(new int[] { nx, ny });
+          graph[nx][ny] = graph[x][y] + 1;
+        }
+      }
+    }
 
-		Queue<int[]> q = new LinkedList<>();
-
-		q.add(new int[] { x, y, depth });
-
-		while (!q.isEmpty()) {
-
-			int[] tmp = q.poll();
-
-			x = tmp[0];
-			y = tmp[1];
-			depth = tmp[2];
-			
-			if (x == N-1 && y == M-1) {
-				break;
-			}
-
-			for (int d = 0; d < 4; d++) {
-
-				int nx = x + dx[d];
-				int ny = y + dy[d];
-
-				if (nx >= 0 && nx < N && ny >= 0 && ny < M && !visited[nx][ny] && map[nx][ny] != 0) {
-					visited[nx][ny] = true;
-					q.add(new int[] { nx, ny, depth + 1 });
-				}
-			}
-
-		}
-		cnt = depth;
-
-	}
-
+    return 0;
+  }
 }
