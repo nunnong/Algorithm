@@ -1,50 +1,61 @@
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
-
 public class Main {
-    static List<Integer>[] list;
-    static boolean[] visited;
-    static int cnt;
+  static boolean[] checked;
+  static int count = 0;
+  static List<Integer>[] graph;
 
-    public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+  public static void main(String[] args) throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int N = Integer.parseInt(br.readLine());
-        int M = Integer.parseInt(br.readLine()); // 연결 개수
-        list = new ArrayList[N + 1];
-        visited = new boolean[N + 1];
+    int N = Integer.parseInt(br.readLine());
+    int M = Integer.parseInt(br.readLine());
 
-        for (int i = 0; i <= N; i++) { // 0번 인덱스는 안 씀.
-            list[i] = new ArrayList<>();
-        }
-        StringTokenizer st;
-        for (int i = 0; i < M; i++) {
-            st = new StringTokenizer(br.readLine());
-            int a = Integer.parseInt(st.nextToken());
-            int b = Integer.parseInt(st.nextToken());
+    graph = new ArrayList[N + 1];
+    StringTokenizer st;
+    checked = new boolean[N + 1];
 
-            list[a].add(b);
-            list[b].add(a);
-        }
-        cnt = 0;
-        visited[1] = true;
-        dfs(1);
-
-        System.out.println(cnt);
+    for (int i = 0; i <= N; i++) {
+      graph[i] = new ArrayList<Integer>();
     }
 
-    private static void dfs(int node) {
-        for (int i : list[node]) {
-            if (!visited[i]) {
-                visited[i] = true;
-                cnt++;
-                dfs(i);
-            }
-        }
+    for (int i = 0; i < M; i++) {
+      st = new StringTokenizer(br.readLine());
+      int u = Integer.parseInt(st.nextToken());
+      int v = Integer.parseInt(st.nextToken());
 
+      graph[u].add(v);
+      graph[v].add(u);
     }
+
+    bfs(1);
+    System.out.println(count);
+
+  }
+
+  static void bfs(int start) {
+    Queue<Integer> q = new ArrayDeque<>();
+    q.add(start);
+    checked[start] = true;
+
+    while (!q.isEmpty()) {
+      int num = q.poll();
+
+      for (int i : graph[num]) {
+        if (!checked[i]) {
+          checked[i] = true;
+          q.add(i);
+          count++;
+        }
+      }
+    }
+
+  }
 }
