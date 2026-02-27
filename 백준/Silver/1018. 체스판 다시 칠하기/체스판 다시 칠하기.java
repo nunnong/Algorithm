@@ -1,77 +1,57 @@
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
+  static char[][] tile;
+  static int cnt = 0;
 
-    static int N, M;
-    static int[][] map;
-    static int count = Integer.MAX_VALUE;
+  public static void main(String[] args) throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-    public static void main(String[] args) throws Exception {
+    StringTokenizer st = new StringTokenizer(br.readLine());
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    int N = Integer.parseInt(st.nextToken());
+    int M = Integer.parseInt(st.nextToken());
 
-        String line = br.readLine();
-        StringTokenizer st = new StringTokenizer(line);
+    int min = Integer.MAX_VALUE;
 
-        N = Integer.parseInt(st.nextToken());
-        M = Integer.parseInt(st.nextToken());
+    tile = new char[N][M];
 
-        map = new int[N][M];
-
-        for (int i = 0; i < N; i++) {
-            String row = br.readLine();
-            for (int j = 0; j < M; j++) {
-                char c = row.charAt(j);
-                map[i][j] = (c == 'W') ? 1 : 0;
-            }
-        }
-
-        for (int i = 0; i <= N - 8; i++) {
-            for (int j = 0; j <= M - 8; j++) {
-                counting(i, j);
-            }
-        }
-
-        System.out.println(count);
+    for (int i = 0; i < N; i++) {
+      tile[i] = br.readLine().toCharArray();
     }
 
-    private static void counting(int n, int m) {
+    for (int i = 0; i <= N - 8; i++) {
+      for (int j = 0; j <= M - 8; j++) {
+        // 시작점 (i, j)
+        cnt = 0;
+        int w = start(i, j);
 
-        // 첫 번째 블럭이 White
-        int cntWhite = 0;
-
-        for (int i = n; i < n + 8; i++) {
-            for (int j = m; j < m + 8; j++) {
-                if ((i + j) % 2 == 0 && map[i][j] == 0) {
-                    cntWhite++;
-                }
-                if ((i + j) % 2 == 1 && map[i][j] == 1) {
-                    cntWhite++;
-                }
-            }
+        if (min > w) {
+          min = w;
         }
-
-        // 첫 번째 블럭이 Black
-
-        int cntBlack = 0;
-
-        for (int i = n; i < n + 8; i++) {
-            for (int j = m; j < m + 8; j++) {
-                if ((i + j) % 2 == 0 && map[i][j] == 1) {
-                    cntBlack++;
-                }
-                if ((i + j) % 2 == 1 && map[i][j] == 0) {
-                    cntBlack++;
-                }
-            }
-        }
-
-        count = Math.min(count, Math.min(cntWhite, cntBlack));
-
-
+      }
     }
 
+    System.out.println(min);
+
+  }
+
+  static int start(int startX, int startY) {
+    for (int i = startX; i < startX + 8; i++) {
+      for (int j = startY; j < startY + 8; j++) {
+        if ((i + j) % 2 == 0 && tile[i][j] == 'B') {
+          cnt++;
+        }
+
+        if ((i + j) % 2 == 1 && tile[i][j] == 'W') {
+          cnt++;
+        }
+      }
+    }
+    return Math.min(cnt, 64 - cnt);
+  }
 
 }
