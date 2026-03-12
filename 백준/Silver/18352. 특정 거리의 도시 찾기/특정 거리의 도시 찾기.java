@@ -48,6 +48,7 @@ public class Main {
 
       if (cnt == K) {
         list.add(node);
+        continue;
       }
 
       for (int i : graph[node]) {
