@@ -5,17 +5,16 @@ import java.util.StringTokenizer;
 
 public class Main {
   static int N, M;
-  static boolean[] visited;
+  static int[] arr;
   static StringBuilder sb = new StringBuilder();
 
   public static void main(String[] args) throws IOException {
-
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     StringTokenizer st = new StringTokenizer(br.readLine());
 
     N = Integer.parseInt(st.nextToken());
     M = Integer.parseInt(st.nextToken());
-    visited = new boolean[N + 1];
+    arr = new int[M];
 
     combi(1, 0);
     System.out.println(sb);
@@ -23,20 +22,16 @@ public class Main {
 
   static void combi(int start, int cnt) {
     if (cnt == M) {
-      for (int i = 1; i <= N; i++) {
-        if (visited[i]) {
-          sb.append(i).append(" ");
-        }
+      for (int i = 0; i < M; i++) { // i는 1부터 시작하면 안 됨
+        sb.append(arr[i]).append(" ");
       }
       sb.append("\n");
+      return;
     }
 
     for (int i = start; i <= N; i++) {
-      if (!visited[i]) {
-        visited[i] = true;
-        combi(i + 1, cnt + 1);
-        visited[i] = false;
-      }
+      arr[cnt] = i;
+      combi(i + 1, cnt + 1);
     }
   }
 }
