@@ -1,0 +1,21 @@
+import java.util.*;
+
+class Solution {
+    public int solution(int[] scoville, int K) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for (int s : scoville) pq.offer(s);
+        
+        int mixCount = 0; // 섞기 1회 = poll 2번 + offer 1번 완료 시 +1
+        
+        while (pq.peek() < K) {
+            if (pq.size() < 2) return -1; // 섞을 게 부족하면 실패
+            
+            int min1 = pq.poll();
+            int min2 = pq.poll();
+            pq.offer(min1 + min2 * 2);
+            mixCount++;
+        }
+        
+        return mixCount;
+    }
+}
