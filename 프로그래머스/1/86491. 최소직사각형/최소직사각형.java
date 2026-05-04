@@ -7,17 +7,9 @@ class Solution {
             int w = sizes[i][0];
             int h = sizes[i][1];
             
-            if (w < h) {
-                int tmp = w;
-                w = h;
-                h = tmp;
-            }
-            
-            maxW = (maxW < w) ? w : maxW;
-            maxH = (maxH < h) ? h : maxH;
+            maxW = Math.max(maxW, Math.max(w, h));
+            maxH = Math.max(maxH, Math.min(w, h));
         }
-        
-        
         
         return maxW * maxH;
     }
