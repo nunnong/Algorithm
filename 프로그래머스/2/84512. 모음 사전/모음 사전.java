@@ -1,21 +1,9 @@
-import java.util.*;
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
 
-class Solution {
-    static List<String> list = new ArrayList<>();
-    static char[] vowels = {'A', 'E', 'I', 'O', 'U'};
-
-    public int solution(String word) {
-        dfs("");
-        return list.indexOf(word) + 1;
-    }
-
-    static void dfs(String cur) {
-        if (cur.length() == 5) return;
-
-        for (char c : vowels) {
-            String next = cur + c;
-            list.add(next);
-            dfs(next);
-        }
-    }
+// 파라미터로 주어지는 문자열은 const로 주어집니다. 변경하려면 문자열을 복사해서 사용하세요.
+int solution(const char* word) {
+    int answer = 0;
+    return answer;
 }
